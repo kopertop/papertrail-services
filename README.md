@@ -1,9 +1,7 @@
 Papertrail Services
 ===================
 
-Service hooks for [Papertrail][]. This houses all of the alerts that can be
-sent from Papertrail to other services.
-
+Service hooks for [Papertrail][].
 
 Search Alert Service Lifecycle
 ------------------------------
@@ -80,6 +78,13 @@ This is a sample `payload` that is also available in [lib/papertrail_services/he
 }
 ```
 
+More info about Papertrail Webhooks
+-----------------------------------
+
+If you would like more info about how our webhooks work, head over to our
+[webhooks documentation][].
+
+
 Contributing
 ------------
 
@@ -111,3 +116,4 @@ We thank them for everything they've done for all of us.
 [fk]: http://help.github.com/forking/
 [is]: https://github.com/papertrail/papertrail_services/issues/
 [Papertrail]: http://papertrailapp.com/
+[webhooks documentation]: http://help.papertrailapp.com/kb/how-it-works/web-hooks
