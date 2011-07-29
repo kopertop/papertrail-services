@@ -10,7 +10,7 @@ class Service::Silverline < Service
             :value => count
           }
         }
-      }
+      }.to_json
     end
   end
 end
