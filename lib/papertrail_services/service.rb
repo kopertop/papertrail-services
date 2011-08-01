@@ -1,4 +1,5 @@
 require 'papertrail_services/helpers/logs_helpers'
+require 'papertrail_services/helpers/metrics_generator'
 
 module PapertrailServices
   class Service
