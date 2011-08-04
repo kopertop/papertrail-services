@@ -36,7 +36,7 @@ module PapertrailServices
       end
 
       def json_decode(value)
-        Yajl::Parser.parse(value)
+        Yajl::Parser.parse(value, :check_utf8 => false)
       end
 
       def json_encode(value)
