@@ -1,28 +1,20 @@
 module PapertrailServices
   module Helpers
     module EventMetrics
-      def self.prepare(events, metrics)
-        if metrics.length == 1 && !metrics.values.first[:regex]
+      def self.prepare(events, name, regex)
+        unless regex
           # count all events as a single data point
           return [{ 
-            :metric_name => metrics.values.first[:name],
+            :metric_name => name,
             :value => events.length,
             :timestamp => Time.now.utc.strftime('%FT%XZ')
           }]
         end
   
-        # generate one data point per metric per event. value is either extracted 
-        # from the message or 1
-        metrics.each do |metric_id,metric|
-          regex = metric[:regex] && Regexp.new(metric[:regex])
-          
-          metric[:data_points] = data_points_for_metric(metric, events, regex)
-        end
-  
-        metrics
+        data_points_for_metric(name, events, Regexp.new(metric[:regex]))
       end
       
-      def self.data_points_for_metric(metric, events, regex)
+      def self.data_points_for_metric(name, events, regex)
         data_points = []
               
         events.each do |event|
@@ -41,7 +33,7 @@ module PapertrailServices
           value ||= 1
       
           data_points << { 
-            :metric_name => metric[:name],
+            :metric_name => name,
             :value => value,
             :timestamp => event[:received_at]
           }
