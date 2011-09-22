@@ -12,3 +12,10 @@ gem 'mail', '~> 2.2'
 
 # service :campfire
 gem 'tinder', '~> 1.4'
+
+group :production do
+  gem 'pg'
+
+  # Use unicorn as the web server
+  gem 'unicorn'
+end
