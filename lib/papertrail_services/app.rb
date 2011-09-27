@@ -1,5 +1,13 @@
 module PapertrailServices
   class App < Sinatra::Base
+    configure do
+      if ENV['HOPTOAD_API_KEY'].present?
+        HoptoadNotifier.configure do |config|
+          config.api_key = ENV['HOPTOAD_API_KEY']
+        end
+      end
+    end
+
     def self.service(svc)
       post "/#{svc.hook_name}/:event" do
         begin
@@ -28,16 +36,20 @@ module PapertrailServices
       end
 
       def json_decode(value)
-        Yajl::Parser.parse(value)
+        Yajl::Parser.parse(value, :check_utf8 => false)
       end
 
       def json_encode(value)
         Yajl::Encoder.encode(value)
       end
-    
+
       def report_exception(e)
         $stderr.puts "Error: #{e.class}: #{e.message}"
         $stderr.puts "\t#{e.backtrace.join("\n\t")}"
+
+        if ENV['HOPTOAD_API_KEY'].present?
+          HoptoadNotifier.notify(e)
+        end
       end
     end
   end

@@ -10,7 +10,7 @@ class Service::CloudWatch < Service
   end
 
   def acw
-    @acw ||= RightAws::AcwInterface.new(settings[:access_key_id], settings[:secret_key])
+    @acw ||= RightAws::AcwInterface.new(settings[:aws_access_key_id], settings[:aws_secret_access_key])
   end
   
   def prepare(events, name, regex)
@@ -23,7 +23,7 @@ class Service::CloudWatch < Service
       }]
     end
 
-    data_points_for_metric(name, events, Regexp.new(metric[:regex]))
+    data_points_for_metric(name, events, Regexp.new(regex))
   end
   
   def data_points_for_metric(name, events, regex)
@@ -38,17 +38,17 @@ class Service::CloudWatch < Service
     
         # use extracted value
         value = match_data[1].to_i if match_data[1]
+      else
+        # no regex used (or no backref used), so this is basically an 
+        # unaggregated counter
+        value = 1
       end
-
-      # no regex used (or no backref used), so this is basically an 
-      # unaggregated counter
-      value ||= 1
   
       data_points << { 
         :metric_name => name,
         :value => value,
         :timestamp => event[:received_at]
-      }
+      } if value
     end
     
     data_points

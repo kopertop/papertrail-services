@@ -8,7 +8,7 @@ class CloudWatchTest < PapertrailServices::TestCase
   end
   
   def setup
-    @common_settings = { :access_key_id => '123', :secret_key => '456' }
+    @common_settings = { :aws_access_key_id => '123', :aws_secret_access_key => '456' }
   end
 
   def test_logs
