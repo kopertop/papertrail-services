@@ -3,8 +3,6 @@ class Service::CloudWatch < Service
   
   def receive_logs
     data_points = prepare(payload[:events], settings[:metric_name], settings[:regex])
-    puts data_points.inspect
-        
     return if data_points.empty?
 
     if settings[:metric_namespace].present?
