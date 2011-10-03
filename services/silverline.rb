@@ -26,5 +26,11 @@ class Service::Silverline < Service
         :gauges => gauges
       }.to_json
     end
+
+    def ok? my_int
+      (my_int/100) == 2
+    end
+
+    raise Service::ConfigurationError unless ok? res.status
   end
 end

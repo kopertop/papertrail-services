@@ -1,6 +1,6 @@
 require File.expand_path('../helper', __FILE__)
 
-class SilverlineTest < PapertrailServices::TestCase
+class LibratoMetricsTest < PapertrailServices::TestCase
   def setup
     @stubs = Faraday::Adapter::Test::Stubs.new
   end
@@ -36,6 +36,6 @@ class SilverlineTest < PapertrailServices::TestCase
   end
 
   def service(*args)
-    super Service::Silverline, *args
+    super Service::LibratoMetrics, *args
   end
 end
