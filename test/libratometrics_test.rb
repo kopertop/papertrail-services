@@ -27,7 +27,7 @@ class LibratoMetricsTest < PapertrailServices::TestCase
     end
 
     @stubs.post '/v1/metrics.json' do |env|
-      [500, {}, '']
+      [500, {}, 'Internal Server Error']
     end
 
     assert_raise Service::ConfigurationError do

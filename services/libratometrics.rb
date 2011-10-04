@@ -35,10 +35,10 @@ class Service::LibratoMetrics < Service
       }.to_json
     end
 
-    def ok? my_int
-      (my_int/100) == 2
+    unless res.success? then
+      msg = "Error connecting to Librato (#{res.status})"
+      (msg += ": " + res.body[0..255]) if res.body
+      raise_config_error(msg)
     end
-
-    raise Service::ConfigurationError unless ok? res.status
   end
 end
