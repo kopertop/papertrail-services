@@ -76,8 +76,8 @@ class Service::CloudWatch < Service
     body['Version']   = '2010-08-01'
     body['Namespace'] = namespace
 
-    aws_connection.get 'https://monitoring.amazonaws.com/' do |req|
-      req.params = body
+    aws_connection.post 'https://monitoring.amazonaws.com/' do |req|
+      req.body = body
     end
   end
 
