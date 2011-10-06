@@ -35,9 +35,11 @@ class Service::LibratoMetrics < Service
       }.to_json
     end
 
-    unless res.success? then
+    if !res.success?
       msg = "Error connecting to Librato (#{res.status})"
-      (msg += ": " + res.body[0..255]) if res.body
+      if res.body
+        msg += ": " + res.body[0..255]
+      end
       raise_config_error(msg)
     end
   end
