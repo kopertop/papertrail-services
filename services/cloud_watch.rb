@@ -20,7 +20,6 @@ class Service::CloudWatch < Service
         c.builder.insert(0, AwsAuthentication, settings[:aws_access_key_id], settings[:aws_secret_access_key])
         c.builder.insert(1, Faraday::Request::UrlEncoded)
         c.builder.insert(3, Faraday::Response::RaiseError)
-        c.builder.insert(4, Faraday::Response::Logger)
       end
     end
   end
