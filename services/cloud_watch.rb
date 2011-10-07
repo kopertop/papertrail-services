@@ -50,13 +50,11 @@ class Service::CloudWatch < Service
       # use extracted value or 1 (no regex backreference provided)
       value = match_data[1] ? match_data[1].to_i : 1
 
-      if value
-        data_points << {
-          :metric_name => name,
-          :value => value,
-          :timestamp => event[:received_at]
-        }
-      end
+      data_points << {
+        :metric_name => name,
+        :value => value,
+        :timestamp => event[:received_at]
+      }
     end
 
     data_points
